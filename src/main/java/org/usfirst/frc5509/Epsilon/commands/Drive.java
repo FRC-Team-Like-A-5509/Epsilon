@@ -43,6 +43,29 @@ public class Drive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+
+        double rotation;
+    	double x;
+    	double y;
+    	
+    	rotation = Robot.oi.getJoystick1().getRawAxis(4);
+    	x = Robot.oi.getJoystick1().getRawAxis(0);
+    	y = Robot.oi.getJoystick1().getRawAxis(1) * -1;
+    	
+    	if(Math.abs(rotation) < .1) {
+    		rotation = 0;
+    	}
+    	if(Math.abs(x) < .1) {
+    		x = 0;
+    	}
+    	if(Math.abs(y) < .1) {
+    		y = 0;
+    	}
+    	
+    	
+    	
+        Robot.driveTrain.drive(rotation, x, y);
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -54,11 +77,13 @@ public class Drive extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.driveTrain.drive(0,0,0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 }
