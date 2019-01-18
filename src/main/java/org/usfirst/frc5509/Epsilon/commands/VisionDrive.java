@@ -43,6 +43,40 @@ public class VisionDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        //If the target is above the crosshair, we are too close, move back
+        //If the target is below the crosshair, we aren't close enough, move forward
+        //If the target is to the left of the crosshair, we are too far to the left, move right
+        //If the target is to the right of the crosshair, we are too far to the right, move left 
+        float Kp = -0.1f;  // Proportional control constant
+        float min_command = 0.05f;
+
+        float tx = LimelightVision.getXInDegrees();
+        float ty = LimelightVision.getyInDegrees();
+
+        if (joystick->GetRawButton(9)){
+            float heading_error = tx;
+            float x_adjust = 0.0f; //uses the x values, determines side to side movement
+            float y_adjust = 0.0f; //uses the y values, determines front to back movement
+
+            if (tx > 1.0){
+                x_adjust = Kp*heading_error - min_command;
+            }
+            else if (tx < 1.0){
+                x_adjust = Kp*heading_error + min_command;
+            }
+
+            if (ty > 1.0){
+                y_adjust = Kp*heading_error - min_command;
+            }
+            else if (ty < 1.0){
+                y_adjust = Kp*heading_error + min_command;
+            }
+
+            left_command += x_adjust;
+            right_command -= x_adjust;
+            forward_command += y_adjust;
+            reverse_command -= y_adjust;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
