@@ -97,13 +97,13 @@ public class LimelightVision extends Subsystem {
         return 34.5 - 6.96 * Math.log(ta.getDouble(0.0000000));
     }
 
-    public static double getYInDegrees() {
+    public double getYInDegrees() {
         NetworkTableEntry ty = table.getEntry("ty");
         double y = ty.getDouble(0.0);
         return y;
     }
 
-    public static double getXInDegrees() {
+    public double getXInDegrees() {
         NetworkTableEntry tx = table.getEntry("tx");
         double x = tx.getDouble(0.0);
         return x;
