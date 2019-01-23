@@ -106,6 +106,8 @@ public class VisionDrive extends Command {
             SmartDashboard.putNumber("x_adjust", x_adjust);
             //frontBack_command += y_adjust;
             SmartDashboard.putNumber("y_adjust", y_adjust);
+            Robot.driveTrain.drive(0, x_adjust, y_adjust);
+             
        // }
     }
     public double getYInDegrees() {
