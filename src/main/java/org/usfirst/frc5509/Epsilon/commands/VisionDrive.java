@@ -83,8 +83,8 @@ public class VisionDrive extends Command {
         double ty = getYInDegrees();
 
         //if (joystick1.getRawAxis(9) == 1){
-            double heading_errorX = tx;
-            double heading_errorY = ty;
+            double heading_errorX = -tx;
+            double heading_errorY = -ty;
             double x_adjust = 0.0; //uses the x values, determines side to side movement
             double y_adjust = 0.0; //uses the y values, determines front to back movement
 
@@ -99,7 +99,7 @@ public class VisionDrive extends Command {
                 y_adjust = Kp*heading_errorY - min_command;
             }
             else if (ty < 1.0){
-                y_adjust = -1 * (Kp*heading_errorY + min_command);
+                y_adjust = -1* (Kp*heading_errorY + min_command);
             }
 
             //calculate the angle we want to turn by
@@ -119,7 +119,38 @@ public class VisionDrive extends Command {
             SmartDashboard.putNumber("x_adjust", x_adjust);
             //frontBack_command += y_adjust;
             SmartDashboard.putNumber("y_adjust", y_adjust);
-            Robot.driveTrain.drive(0, x_adjust, y_adjust);
+
+            //GET TO THE CORRECT ANGLE
+            angle = ahrs.getYaw();
+            double angleError = angleToTurnTo - angle;
+            double steering_adjust = 0.0f;
+            /*
+             if (angle > 1.0)
+             {
+                steering_adjust = Kp*angleError - min_command;
+            }
+             else if (angle < - 1.0)
+              {
+                steering_adjust = Kp*angleError + min_command;
+             }
+             */
+            double allowedAngleError = 1.0;
+            double turnSpeed = 0.0;
+            // Don't turn if we're in the tolerance
+            if(Math.abs(angleError) > allowedAngleError){
+                double maxAngle = 30.0;
+                double adjustedError = angleError / maxAngle;
+                // Clip it:
+                turnSpeed = Math.min(adjustedError, 1.0);
+                turnSpeed = Math.max(adjustedError, -1.0);
+                // Make sure we have *some* speed
+                if(Math.abs(turnSpeed) < 0.2){
+                    turnSpeed = 0.2 * Math.signum(turnSpeed);
+                }
+            }
+
+
+            Robot.driveTrain.drive(turnSpeed, x_adjust, y_adjust);
             
        // }
     }
