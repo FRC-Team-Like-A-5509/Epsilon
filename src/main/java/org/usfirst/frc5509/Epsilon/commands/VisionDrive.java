@@ -71,7 +71,7 @@ public class VisionDrive extends Command {
     @Override
     protected void execute() {
         SmartDashboard.putNumber("GyroRawAxis", ahrs.getAngle());
-        
+        SmartDashboard.putNumber("GyroRawAxisYaw", ahrs.getYaw());
         //If the target is above the crosshair, we are too close, move back
         //If the target is below the crosshair, we aren't close enough, move forward
         //If the target is to the left of the crosshair, we are too far to the right, move left
@@ -102,12 +102,25 @@ public class VisionDrive extends Command {
                 y_adjust = -1 * (Kp*heading_errorY + min_command);
             }
 
+            //calculate the angle we want to turn by
+            double angle = ahrs.getYaw();
+            double angleToTurnTo = 0;
+            double minDifference = 1000;
+            double[] snapAngles = {-180, -120, -90, -60, 0, 60, 90, 120, 180};
+            //first, find the angle to turn to
+            for(int i = 0; i < snapAngles.length; i++){
+                if(Math.abs(snapAngles[i] - angle) <= minDifference){
+                    angleToTurnTo = snapAngles[i];
+                    minDifference = Math.abs(snapAngles[i] - angle);
+                }
+            }
+            SmartDashboard.putNumber("AngleToTurnTo", angleToTurnTo);
             //strafe_command += x_adjust;
             SmartDashboard.putNumber("x_adjust", x_adjust);
             //frontBack_command += y_adjust;
             SmartDashboard.putNumber("y_adjust", y_adjust);
             Robot.driveTrain.drive(0, x_adjust, y_adjust);
-             
+            
        // }
     }
     public double getYInDegrees() {
