@@ -89,17 +89,17 @@ public class VisionDrive extends Command {
             double y_adjust = 0.0; //uses the y values, determines front to back movement
 
             if (tx > 1.0){
-                x_adjust = Kp*heading_errorX - min_command;//target is to the right of the cross hair, move right
+                x_adjust = Math.tanh(Kp*heading_errorX - min_command);//target is to the right of the cross hair, move right
             }
             else if (tx < 1.0){
-                x_adjust = -1 * (Kp*heading_errorX + min_command);//target is to the left of the cross hair, move left
+                x_adjust = -1 * Math.tanh(Kp*heading_errorX + min_command);//target is to the left of the cross hair, move left
             }
 
             if (ty > 1.0){
-                y_adjust = Kp*heading_errorY - min_command;
+                y_adjust = Kp * Math.tanh(heading_errorY - min_command);
             }
             else if (ty < 1.0){
-                y_adjust = -1* (Kp*heading_errorY + min_command);
+                y_adjust = -1 * Math.tanh((Kp*heading_errorY + min_command));
             }
 
             //calculate the angle we want to turn by
@@ -148,7 +148,7 @@ public class VisionDrive extends Command {
                     turnSpeed = 0.2 * Math.signum(turnSpeed);
                 }
             }
-
+            SmartDashboard.putNumber("AngleTurnPower", turnSpeed);
 
             Robot.driveTrain.drive(turnSpeed, x_adjust, y_adjust);
             
