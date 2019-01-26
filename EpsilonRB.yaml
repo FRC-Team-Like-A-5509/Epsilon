@@ -13,7 +13,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: &id002 [CANID]
-          value: '1'
+          value: '8'
       Base: Talon SRX
       Name: frontRightDrive
     - Children: []
@@ -23,7 +23,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '2'
+          value: '7'
       Base: Talon SRX
       Name: backRightDrive
     - Children: []
@@ -33,7 +33,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '3'
+          value: '2'
       Base: Talon SRX
       Name: backLeftDrive
     - Children: []
@@ -43,7 +43,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '4'
+          value: '1'
       Base: Talon SRX
       Name: frontLeftDrive
     - Children: []
@@ -53,7 +53,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '5'
+          value: '6'
       Base: Talon SRX
       Name: frontRightSwerve
     - Children: []
@@ -63,7 +63,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '6'
+          value: '5'
       Base: Talon SRX
       Name: backRightSwerve
     - Children: []
@@ -73,7 +73,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '7'
+          value: '4'
       Base: Talon SRX
       Name: backLeftSwerve
     - Children: []
@@ -83,7 +83,7 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '8'
+          value: '3'
       Base: Talon SRX
       Name: frontLeftSwerve
     Properties:
