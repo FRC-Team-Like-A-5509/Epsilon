@@ -52,7 +52,7 @@ public class LiftUpDown extends Command {
 
         Robot.liftDrive.driveMotor(power);
 
-        SmartDashboard.putNumber("Encoder Position", Robot.liftDrive.getEncoder().getPosition());
+        //SmartDashboard.putNumber("Encoder Position", Robot.liftDrive.getEncoder().getPosition());
 
     }
 
