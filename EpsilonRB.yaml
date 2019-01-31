@@ -215,6 +215,61 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: VisionTest
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: x, type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: y, type: double}
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: rotation, type: double}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: DriveTrain}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id006
+        - !!robotbuilder.data.properties.ParameterSet
+          name: Strafe90
+          parameters:
+          - {name: x, type: double, value: '1'}
+          - {name: y, type: double, value: '0'}
+          - {name: rotation, type: double, value: '0'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: StrageNeg90
+          parameters:
+          - {name: x, type: double, value: '-1'}
+          - {name: y, type: double, value: '0'}
+          - {name: rotation, type: double, value: '0'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: Go0
+          parameters:
+          - {name: x, type: double, value: '0'}
+          - {name: y, type: double, value: '0'}
+          - {name: rotation, type: double, value: '0'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: Strafe45Slow
+          parameters:
+          - {name: x, type: double, value: '.5'}
+          - {name: y, type: double, value: '.5'}
+          - {name: rotation, type: double, value: '0'}
+        - !!robotbuilder.data.properties.ParameterSet
+          name: Strafe45
+          parameters:
+          - {name: x, type: double, value: '1'}
+          - {name: y, type: double, value: '1'}
+          - {name: rotation, type: double, value: '0'}
+        name: Parameter presets
+        validators: null
+        value: *id006
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: AutoDrive
   Properties: {}
   Base: Commands
   Name: Commands
