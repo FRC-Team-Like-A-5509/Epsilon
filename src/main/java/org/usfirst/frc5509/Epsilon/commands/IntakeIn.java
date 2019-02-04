@@ -43,6 +43,13 @@ public class IntakeIn extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+
+        double power = 0.0;
+        power = Robot.oi.getJoystick2().getRawAxis(2);
+
+        Robot.intakeDrive.move(power);
+
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
