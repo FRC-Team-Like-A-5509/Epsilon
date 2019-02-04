@@ -86,38 +86,6 @@ Children:
           value: '3'
       Base: Talon SRX
       Name: frontLeftSwerve
-    - Children: []
-      Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: [Victor, Jaguar, Talon, VictorSP, PWMTalonSRX, Spark, SD540, PWMVictorSPX,
-            DMC60]
-          default: Spark
-          name: Type
-          validators: null
-          value: Spark
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19']
-          default: '0'
-          name: Output Channel (PWM)
-          validators: [PWMOutput]
-          value: '4'
-        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Inverted, validators: null, value: false}
-      Base: Speed Controller
-      Name: armPivotDrive
-    - Children: []
-      Properties:
-        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
-            '24', '25']
-          default: '0'
-          name: Input Channel (Digital)
-          validators: [DigitalChannel]
-          value: '0'
-      Base: Digital Input
-      Name: pivotMotorEncoder
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Send to SmartDashboard, validators: null, value: false}
@@ -153,6 +121,46 @@ Children:
         value: *id003
     Base: Subsystem
     Name: LimelightVision
+  - Children:
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
+            '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23',
+            '24', '25']
+          default: '0'
+          name: Input Channel (Digital)
+          validators: [DigitalChannel]
+          value: '0'
+      Base: Digital Input
+      Name: pivotMotorEncoder
+    - Children: []
+      Properties:
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: '2'
+          name: CAN ID
+          validators: *id002
+          value: '14'
+      Base: Talon SRX
+      Name: pivotMotor
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: false}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: None}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: BoschDrive
   Properties: {}
   Base: Subsystems
   Name: Subsystems
@@ -314,16 +322,16 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: DriveTrain}
+        name: Requires, type: Subsystem, validators: null, value: BoschDrive}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
-        default: &id006 []
+        default: []
         name: Parameter presets
         validators: null
-        value: *id006
+        value: []
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: pivot
+    Name: Pivot
   Properties: {}
   Base: Commands
   Name: Commands
