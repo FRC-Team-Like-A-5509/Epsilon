@@ -48,7 +48,7 @@ public class Pivot extends Command {
 
         double power = 0.0;
 
-        power = Robot.oi.getJoystick2().getRawAxis(5) * -1;
+        power = Robot.oi.getJoystick2().getRawAxis(5) ;
 
         Robot.boschDrive.pivotArms(power);
         SmartDashboard.putNumber("PivotEncoderPosition", Robot.boschDrive.getPivotPosition());
