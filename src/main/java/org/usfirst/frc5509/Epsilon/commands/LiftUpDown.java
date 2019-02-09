@@ -50,6 +50,8 @@ public class LiftUpDown extends Command {
 
         power = Robot.oi.getJoystick2().getRawAxis(1);
 
+        power = Math.pow(power, 3) * .5;
+
         Robot.liftDrive.driveMotor(power);
 
         //SmartDashboard.putNumber("Encoder Position", Robot.liftDrive.getEncoder().getPosition());
