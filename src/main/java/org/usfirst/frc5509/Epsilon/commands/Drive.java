@@ -62,9 +62,17 @@ public class Drive extends Command {
     	}
     	if(Math.abs(y) < .1) {
     		y = 0;
-    	}
+        }
+        
+        rotation = Math.pow(rotation, 3);
+        x = Math.pow(x, 3);
+        y = Math.pow(y,3);
     	
-    	
+    	if(!Robot.oi.getJoystick1().getRawButton(6)){
+            y *= .5;
+            x*= .5;
+            rotation *= .5;
+        }
     	
         Robot.driveTrain.drive(rotation, x, y);
         

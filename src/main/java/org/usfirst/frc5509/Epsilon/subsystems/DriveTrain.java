@@ -44,7 +44,7 @@ public class DriveTrain extends Subsystem {
                                                      // encoder
     private final static double ROTATION_RATIO = 4; // rotation ratio for gearing (probably)
     private final static double CONVERT = ENCODER_TICKS * ROTATION_RATIO;
-    private final static double PIDP = .1;
+    private final static double PIDP = .2;
     private final static double PIDI = 0.0001;
     private final static double PIDD = 0;
     private final static double PIDF = 0;
@@ -236,21 +236,63 @@ public class DriveTrain extends Subsystem {
 		// normalize speeds to a good speed;
 		speeds = normalizeSpeeds(speeds, x, y);
 		
+		/*
 		if (Math.abs(frontRightSwerve.getClosedLoopError(0)) < tickLimit) {
 			SmartDashboard.putNumber("frontRightDriveSet", speeds[0] * MAX_SPEED);
 			frontRightDrive.set(speeds[0] * MAX_SPEED);
+		}
+		else {
+			frontRightDrive.set(0);
 		}
 		if (Math.abs(frontLeftSwerve.getClosedLoopError(0)) < tickLimit) {
 			SmartDashboard.putNumber("frontLeftDriveSet", speeds[1] * MAX_SPEED);
 			frontLeftDrive.set(speeds[1] * MAX_SPEED);
 		}
+		else {
+			frontLeftDrive.set(0);
+		}
 		if (Math.abs(backLeftSwerve.getClosedLoopError(0)) < tickLimit) {
 			SmartDashboard.putNumber("backLeftDriveSet", speeds[2] * MAX_SPEED);
 			backLeftDrive.set(speeds[2] * MAX_SPEED);
 		}
+		else {
+			backLeftDrive.set(0);
+		}
 		if (Math.abs(backRightSwerve.getClosedLoopError(0)) < tickLimit) {
 			SmartDashboard.putNumber("backRightDriveSet", speeds[3] * MAX_SPEED);
 			backRightDrive.set(speeds[3] * MAX_SPEED);
+		}
+		else {
+			backRightDrive.set(0);
+		}
+		*/
+		if (
+			Math.abs(frontRightDrive.getClosedLoopError(0)) < tickLimit &&
+			Math.abs(frontLeftSwerve.getClosedLoopError(0)) < tickLimit &&
+			Math.abs(backLeftSwerve.getClosedLoopError(0)) < tickLimit &&
+			Math.abs(backRightSwerve.getClosedLoopError(0)) < tickLimit) {
+
+			SmartDashboard.putNumber("frontRightDriveSet", speeds[0] * MAX_SPEED);
+			frontRightDrive.set(speeds[0] * MAX_SPEED);
+			SmartDashboard.putNumber("frontLeftDriveSet", speeds[1] * MAX_SPEED);
+			frontLeftDrive.set(speeds[1] * MAX_SPEED);
+			SmartDashboard.putNumber("backLeftDriveSet", speeds[2] * MAX_SPEED);
+			backLeftDrive.set(speeds[2] * MAX_SPEED);
+			SmartDashboard.putNumber("backRightDriveSet", speeds[3] * MAX_SPEED);
+			backRightDrive.set(speeds[3] * MAX_SPEED);
+
+		}
+		else{
+
+			backLeftDrive.set(0);
+
+			backRightDrive.set(0);
+			frontLeftDrive.set(0);
+
+			frontRightDrive.set(0);
+
+
+
 		}
 		
 
