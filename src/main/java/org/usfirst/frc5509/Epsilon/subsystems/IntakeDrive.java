@@ -81,7 +81,7 @@ public class IntakeDrive extends Subsystem {
 
     public void move(double power) {
 
-        intakeMotor1.set(power);
+        intakeMotor1.set(-power);
         intakeMotor2.set(power);
 
     }
