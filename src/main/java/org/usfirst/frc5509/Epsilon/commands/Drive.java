@@ -72,7 +72,7 @@ public class Drive extends Command {
 
             y *= .5;
             x*= .5;
-            rotation *= .25;
+            rotation *= .25; 
             
         }
     	
