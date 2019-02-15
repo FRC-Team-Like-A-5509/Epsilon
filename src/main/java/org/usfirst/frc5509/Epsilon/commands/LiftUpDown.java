@@ -50,7 +50,7 @@ public class LiftUpDown extends Command {
 
         power = Robot.oi.getJoystick2().getRawAxis(1);
 
-        power = Math.pow(power, 3) * .5;
+        power = Math.pow(power, 5);
 
         Robot.liftDrive.driveMotor(power);
 
