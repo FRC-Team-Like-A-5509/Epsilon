@@ -44,8 +44,8 @@ public class DriveTrain extends Subsystem {
                                                      // encoder
     private final static double ROTATION_RATIO = 4; // rotation ratio for gearing (probably)
     private final static double CONVERT = ENCODER_TICKS * ROTATION_RATIO;
-    private final static double PIDP = 12;
-    private final static double PIDI = 0.0001;
+    private final static double PIDP = .3;
+    private final static double PIDI = 0.000;
     private final static double PIDD = 0;
     private final static double PIDF = 0;
 	private double convertUsed = 0;
@@ -295,7 +295,7 @@ public class DriveTrain extends Subsystem {
 
 		}
 		
-
+		
 		SmartDashboard.putNumber("frontRightSwerveSet", ticks[0]);
 		frontRightSwerve.set(ControlMode.Position, ticks[0]);
 		SmartDashboard.putNumber("frontLeftSwerveSet", ticks[1]);
@@ -342,4 +342,77 @@ public class DriveTrain extends Subsystem {
 		 */
 		return speeds;
 	}
+
+	public void wheelSetTurn(double power){
+
+		int[] angles = new int[4];
+		int[] ticks = new int[4];
+
+		angles[0] = 45; //frontLeft
+		angles[1] = 135; // frontright
+		angles[2] = -135; //backright
+		angles[3] = -45; //backleft
+
+		for(int i = 0; i< 4; i++){
+
+			ticks[i] = (int)(angles[i] * convertUsed / 360);
+
+		}
+
+		frontRightSwerve.set(ControlMode.Position, ticks[0]);
+		frontLeftSwerve.set(ControlMode.Position, ticks[1]);
+		backRightSwerve.set(ControlMode.Position, ticks[2]);
+		backLeftSwerve.set(ControlMode.Position, ticks[3]);
+
+		frontRightDrive.set(power);
+		frontLeftDrive.set(power);
+		backRightDrive.set(power);
+		backLeftDrive.set(power);
+
+
+	}
+
+	public void wheelSetStrafe(double power){
+
+		int[] angles = new int[4];
+		int[] ticks = new int[4];
+
+		angles[0] = 90; //frontLeft
+		angles[1] = 90; // frontright
+		angles[2] = 90; //backright
+		angles[3] = 90; //backleft
+
+		for(int i = 0; i< 4; i++){
+
+			ticks[i] = (int)(angles[i] * convertUsed / 360 * -1);
+
+		}
+
+		frontRightSwerve.set(ControlMode.Position, ticks[0]);
+		frontLeftSwerve.set(ControlMode.Position, ticks[1]);
+		backRightSwerve.set(ControlMode.Position, ticks[2]);
+		backLeftSwerve.set(ControlMode.Position, ticks[3]);
+
+		frontRightDrive.set(power);
+		frontLeftDrive.set(power);
+		backRightDrive.set(power);
+		backLeftDrive.set(power);
+
+	}
+
+	public void driveForward(double power){
+
+		frontRightDrive.set(power);
+		frontLeftDrive.set(power);
+		backRightDrive.set(power);
+		backLeftDrive.set(power);
+
+		frontRightSwerve.set(0);
+		frontLeftSwerve.set(0);
+		backRightSwerve.set(0);
+		backLeftSwerve.set(0);
+
+
+	}
+
 }

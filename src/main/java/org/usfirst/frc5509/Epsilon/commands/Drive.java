@@ -68,15 +68,36 @@ public class Drive extends Command {
         x = Math.pow(x, 3);
         y = Math.pow(y,3);
     	
-    	if(!Robot.oi.getJoystick1().getRawButton(6)){
+    	if(!Robot.oi.getJoystick1().getRawButton(1)){
 
             y *= .5;
             x*= .5;
             rotation *= .25; 
             
         }
+
+       
+            if(Robot.oi.getJoystick1().getRawButton(6)){
+                Robot.driveTrain.wheelSetTurn(rotation);
+            }
+            else if(Robot.oi.getJoystick1().getRawButton(5)){
+                Robot.driveTrain.wheelSetTurn(-rotation);
+            }
+            else if(Robot.oi.getJoystick1().getRawButton(2)){
+                Robot.driveTrain.wheelSetTurn(x);
+            }
+            else if(Robot.oi.getJoystick1().getRawButton(3)){
+                Robot.driveTrain.wheelSetTurn(-x);
+            }
+            else if(!(Robot.oi.getJoystick1().getRawButton(6) && Robot.oi.getJoystick1().getRawButton(5) &&
+            Robot.oi.getJoystick1().getRawButton(2) && Robot.oi.getJoystick1().getRawButton(3))){
+                Robot.driveTrain.driveForward(y);
+            }
+
+            
+            
     	
-        Robot.driveTrain.drive(rotation, x, y);
+        
         
     }
 
