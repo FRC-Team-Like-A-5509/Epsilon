@@ -46,8 +46,8 @@ public class DriveTrain extends Subsystem {
                                                      // encoder
     private final static double ROTATION_RATIO = 4; // rotation ratio for gearing (probably)
     private final static double CONVERT = ENCODER_TICKS * ROTATION_RATIO;
-    private final static double PIDP = 12;
-    private final static double PIDI = 0.0001;
+    private final static double PIDP = .001;
+    private final static double PIDI = 0.000;
     private final static double PIDD = 0;
     private final static double PIDF = 0;
 	private double convertUsed = 0;
@@ -109,6 +109,9 @@ public class DriveTrain extends Subsystem {
 		swerveConfig = new SwerveDriveConfig();
 
 		swerveConfig.track_width = TRACKWIDTH;
+		swerveConfig.wheel_base = WHEELBASE;
+
+
 		
     }
 
@@ -212,15 +215,25 @@ public class DriveTrain extends Subsystem {
         initialPosition.getFrontLeftModule().setTurnHeadingTicks(frontLeftSwerve.getSelectedSensorPosition());
         initialPosition.getBackRightModule().setTurnHeadingTicks(backRightSwerve.getSelectedSensorPosition());
         initialPosition.getBackLeftModule().setTurnHeadingTicks(backLeftSwerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("frontRightTicks", frontRightSwerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("frontLeftTicks", frontLeftSwerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("backRightTicks", backRightSwerve.getSelectedSensorPosition());
+		SmartDashboard.putNumber("backLeftTicks", backLeftSwerve.getSelectedSensorPosition());
 
 		SwerveDriveResult result = SwerveDriveMath.getDriveValues(swerveConfig, heading, initialPosition);
 
 		frontRightSwerve.getClosedLoopError(0);
 
-		frontRightSwerve.set(result.getFrontRightModule().turnHeadingTicks);
-		frontLeftSwerve.set(result.getFrontLeftModule().turnHeadingTicks);
-		backLeftSwerve.set(result.getBackLeftModule().turnHeadingTicks);
-		backRightSwerve.set(result.getBackRightModule().turnHeadingTicks);
+		frontRightSwerve.set(result.getFrontRightModule().turnHeadingTicks * -1);
+		frontLeftSwerve.set(result.getFrontLeftModule().turnHeadingTicks * -1);
+		backLeftSwerve.set(result.getBackLeftModule().turnHeadingTicks * -1);
+		backRightSwerve.set(result.getBackRightModule().turnHeadingTicks * -1);
+
+		SmartDashboard.putNumber("frontRightSwerve", result.getFrontRightModule().turnHeadingTicks);
+		SmartDashboard.putNumber("frontLeftSwerve", result.getFrontLeftModule().turnHeadingTicks);
+		SmartDashboard.putNumber("backRightSwerve", result.getBackRightModule().turnHeadingTicks);
+		SmartDashboard.putNumber("backLeftSwerve", result.getBackLeftModule().turnHeadingTicks);
+
 
 		if (
 			Math.abs(frontRightDrive.getClosedLoopError(0)) < tickLimit &&

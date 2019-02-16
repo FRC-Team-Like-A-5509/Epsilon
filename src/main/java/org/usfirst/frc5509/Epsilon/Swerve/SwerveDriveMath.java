@@ -172,22 +172,13 @@ public class SwerveDriveMath {
             }
 
 
-            System.out.println("------");
-            System.out.println("travelDegrees: " + travelDegrees);
-            System.out.println("travelDegreesNew: " + travelDegreesNew);
-            System.out.println("desiredDegreesNew: " + desiredDegreesNew);
-            System.out.println("clockwiseEnd: " + clockwiseEnd);
-            System.out.println("notClockwiseEnd: " + notClockwiseEnd);
-            System.out.println("------");
-
-
-            if (Math.abs(clockwiseEnd- desiredDegreesNew) < .0001) {
+            if (Math.abs(diffBetweenDegrees(clockwiseEnd, desiredDegreesNew)) < .0001) {
 
                 double returningAngle = (int) (((currentDegree + travelDegreesNew) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(false, returningAngle);
                 return returner;
 
-            } else if (Math.abs(notClockwiseEnd - desiredDegreesNew) < .0001) {
+            } else if (Math.abs(diffBetweenDegrees(notClockwiseEnd, desiredDegreesNew)) < .0001) {
 
                 double returningAngle =  (int) (((currentDegree - travelDegreesNew) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(false, returningAngle);
@@ -206,13 +197,13 @@ public class SwerveDriveMath {
                 notClockwiseEnd += 360;
             }
 
-            if (Math.abs(clockwiseEnd - desiredDegrees) < .0001) {
+            if (Math.abs(diffBetweenDegrees(clockwiseEnd, desiredDegrees)) < .0001) {
 
                 double returningAngle = (int) (((currentDegree + travelDegrees) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(true, returningAngle);
                 return returner;
 
-            } else if (Math.abs(notClockwiseEnd - desiredDegrees) < .0001) {
+            } else if (Math.abs(diffBetweenDegrees(notClockwiseEnd, desiredDegrees)) < .0001) {
 
                 double returningAngle =  (int) (((currentDegree - travelDegrees) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(true, returningAngle);
@@ -226,6 +217,21 @@ public class SwerveDriveMath {
 
         }
 
+
+    }
+
+    public static double diffBetweenDegrees(double a, double b){
+
+        double r = (b - a) % 360.0;
+
+        if(r < -180.0){
+            r+= 360.0;
+        }
+        if(r >= 180){
+            r-= 360.0;
+        }
+
+        return r;
 
     }
 
