@@ -1,5 +1,5 @@
+//package com.shalmezad.swervedrive;
 package org.usfirst.frc5509.Epsilon.Swerve;
-
 /**
  * Represents a result of what the swerve drive is/should-be doing
  */
@@ -43,6 +43,12 @@ public class SwerveDriveResult {
             frontRightModule.speedPercentage /= maxSpeed;
             backLeftModule.speedPercentage /= maxSpeed;
             backRightModule.speedPercentage /= maxSpeed;
+        }
+        else if(maxSpeed < -1){
+            frontLeftModule.speedPercentage /= maxSpeed * -1;
+            frontRightModule.speedPercentage /= maxSpeed * -1;
+            backLeftModule.speedPercentage /= maxSpeed * -1;
+            backRightModule.speedPercentage /= maxSpeed * -1;
         }
     }
 }

@@ -46,7 +46,7 @@ public class DriveTrain extends Subsystem {
                                                      // encoder
     private final static double ROTATION_RATIO = 4; // rotation ratio for gearing (probably)
     private final static double CONVERT = ENCODER_TICKS * ROTATION_RATIO;
-    private final static double PIDP = .001;
+    private final static double PIDP = .0001;
     private final static double PIDI = 0.000;
     private final static double PIDD = 0;
     private final static double PIDF = 0;
@@ -110,7 +110,7 @@ public class DriveTrain extends Subsystem {
 
 		swerveConfig.track_width = TRACKWIDTH;
 		swerveConfig.wheel_base = WHEELBASE;
-
+		swerveConfig.ticks_per_360 = 1024;
 
 		
     }
@@ -148,6 +148,11 @@ public class DriveTrain extends Subsystem {
 		frontRightSwerve.configSelectedFeedbackSensor(FeedbackDevice.Analog);
 		backLeftSwerve.configSelectedFeedbackSensor(FeedbackDevice.Analog);
 		backRightSwerve.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+
+		frontLeftSwerve.configFeedbackNotContinuous(true, TIMEOUT_MS);
+		frontRightSwerve.configFeedbackNotContinuous(true, TIMEOUT_MS);
+		backLeftSwerve.configFeedbackNotContinuous(true, TIMEOUT_MS);
+		backRightSwerve.configFeedbackNotContinuous(true, TIMEOUT_MS);
 
 		readControlValues();
 	}
@@ -224,10 +229,10 @@ public class DriveTrain extends Subsystem {
 
 		frontRightSwerve.getClosedLoopError(0);
 
-		frontRightSwerve.set(result.getFrontRightModule().turnHeadingTicks * -1);
-		frontLeftSwerve.set(result.getFrontLeftModule().turnHeadingTicks * -1);
-		backLeftSwerve.set(result.getBackLeftModule().turnHeadingTicks * -1);
-		backRightSwerve.set(result.getBackRightModule().turnHeadingTicks * -1);
+		frontRightSwerve.set(result.getFrontRightModule().turnHeadingTicks *-1);
+		frontLeftSwerve.set(result.getFrontLeftModule().turnHeadingTicks *-1);
+		backLeftSwerve.set(result.getBackLeftModule().turnHeadingTicks *-1);
+		backRightSwerve.set(result.getBackRightModule().turnHeadingTicks *-1);
 
 		SmartDashboard.putNumber("frontRightSwerve", result.getFrontRightModule().turnHeadingTicks);
 		SmartDashboard.putNumber("frontLeftSwerve", result.getFrontLeftModule().turnHeadingTicks);

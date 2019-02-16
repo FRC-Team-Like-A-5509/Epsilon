@@ -1,4 +1,5 @@
-package org.usfirst.frc5509.Epsilon.Swerve;
+//package com.shalmezad.swervedrive;
+ package org.usfirst.frc5509.Epsilon.Swerve;
 
 /**
  * Static configuration for the swerve drive.
@@ -26,5 +27,6 @@ public class SwerveDriveConfig {
 
     public double getTicksPerDegree(){
         return ticks_per_360 / 360.0;
+        //return 2;
     }
 }

@@ -1,3 +1,4 @@
+//package com.shalmezad.swervedrive;
 package org.usfirst.frc5509.Epsilon.Swerve;
 
 public class SwerveDriveMath {
@@ -152,6 +153,8 @@ public class SwerveDriveMath {
 
         double travelDegrees = Math.toDegrees(travelRadians);
 
+        double degreeDiff = (Math.abs(currentDegree - travelDegrees));
+
         if (Math.abs(travelDegrees) > 90) {
 
             desiredDegreesNew = (desiredDegrees + 180) % 360;
@@ -167,27 +170,26 @@ public class SwerveDriveMath {
             double clockwiseEnd = (currentDegreeCirc + travelDegreesNew) % 360;
             double notClockwiseEnd = (currentDegreeCirc - travelDegreesNew) % 360;
 
-            if(notClockwiseEnd < 0){
+            if (notClockwiseEnd < 0) {
                 notClockwiseEnd += 360;
             }
 
 
             if (Math.abs(diffBetweenDegrees(clockwiseEnd, desiredDegreesNew)) < .0001) {
-
+                //change back to + if doesn't work
                 double returningAngle = (int) (((currentDegree + travelDegreesNew) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(false, returningAngle);
                 return returner;
 
             } else if (Math.abs(diffBetweenDegrees(notClockwiseEnd, desiredDegreesNew)) < .0001) {
-
-                double returningAngle =  (int) (((currentDegree - travelDegreesNew) * config.getTicksPerDegree()));
+                //Change back to - if doesn't work
+                double returningAngle = (int) (((currentDegree - travelDegreesNew) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(false, returningAngle);
                 return returner;
 
             } else {
                 throw new NullPointerException();
             }
-
         } else {
 
             double clockwiseEnd = (currentDegreeCirc + travelDegrees) % 360;
@@ -198,13 +200,13 @@ public class SwerveDriveMath {
             }
 
             if (Math.abs(diffBetweenDegrees(clockwiseEnd, desiredDegrees)) < .0001) {
-
+                //change back to + if doesn't work
                 double returningAngle = (int) (((currentDegree + travelDegrees) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(true, returningAngle);
                 return returner;
 
             } else if (Math.abs(diffBetweenDegrees(notClockwiseEnd, desiredDegrees)) < .0001) {
-
+                //Change back to - if doesn't work
                 double returningAngle =  (int) (((currentDegree - travelDegrees) * config.getTicksPerDegree()));
                 VectorAngle returner = new VectorAngle(true, returningAngle);
                 return returner;
