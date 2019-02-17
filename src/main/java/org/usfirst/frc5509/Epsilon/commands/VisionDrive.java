@@ -83,12 +83,15 @@ public class VisionDrive extends Command {
         // move left
         // If the target is to the right of the crosshair, we are too far to the left,
         // move right
-        float Kp = -0.1f; // Proportional control constant
-        float min_command = 0.05f;
+        double Kp = SmartDashboard.getNumber("Limelight_Kp", -0.05);//-0.1f; // Proportional control constant
+        double min_command = SmartDashboard.getNumber("Limelight_min_command", -0.05);//0.05f;
+        SmartDashboard.putNumber("Limelight_Kp_value", Kp);//-0.1f; // Proportional control constant
+        SmartDashboard.putNumber("Limelight_min_command_value", min_command);//0.05f;
         // LimelightVision vision = new LimelightVision();
         double tx = getXInDegrees();
         double ty = getYInDegrees();
-
+        double allowedError = .2;
+    
         // if (joystick1.getRawAxis(9) == 1){
         if (getValidTarget() == 1) {
             double heading_errorX = -tx;
@@ -100,24 +103,29 @@ public class VisionDrive extends Command {
                 x_adjust = Math.tanh(Kp * heading_errorX - min_command);// target is to the right of the cross hair,
                                                                         // move right
             } else if (tx < 1.0) {
-                x_adjust = -1 * Math.tanh(Kp * heading_errorX + min_command);// target is to the left of the cross hair,
+                x_adjust = Math.tanh(Kp * heading_errorX + min_command);// target is to the left of the cross hair,
                                                                              // move left
             }
 
             if(Math.abs(x_adjust) >= .4){
                 x_adjust = Math.signum(x_adjust) * .4;
             }
+            if(Math.abs(x_adjust) <= allowedError){
+                x_adjust = 0;
+            }
 
             if (ty > 1.0) {
-                y_adjust = Kp * Math.tanh(heading_errorY - min_command);
+                y_adjust = Math.tanh(Kp * heading_errorY - min_command);
             } else if (ty < 1.0) {
-                y_adjust = -1 * Math.tanh((Kp * heading_errorY + min_command));
+                y_adjust = Math.tanh((Kp * heading_errorY + min_command));
             }
 
             if(Math.abs(y_adjust) >= .4){
                 y_adjust = Math.signum(y_adjust) * .4;
             }
-
+            if(Math.abs(y_adjust) <= allowedError){
+                y_adjust = 0;
+            }
             // calculate the angle we want to turn by
             double angle = ahrs.getRoll();
             double angleToTurnTo = 0;
@@ -140,7 +148,7 @@ public class VisionDrive extends Command {
             angle = ahrs.getRoll();
             double angleError = angleToTurnTo - angle;
             double steering_adjust = 0.0f;
-            double allowedAngleError = 1.0;
+            double allowedAngleError = 2.80;
             double turnSpeed = 0.0;
             // Don't turn if we're in the tolerance
             if (Math.abs(angleError) > allowedAngleError) {
