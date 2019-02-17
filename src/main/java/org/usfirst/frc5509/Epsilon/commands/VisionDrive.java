@@ -76,6 +76,7 @@ public class VisionDrive extends Command {
     protected void execute() {
         SmartDashboard.putNumber("GyroRawAxis", ahrs.getAngle());
         SmartDashboard.putNumber("GyroRawAxisYaw", ahrs.getYaw());
+        SmartDashboard.putNumber("GyroRawAxisRoll", ahrs.getRoll());
         // If the target is above the crosshair, we are too close, move back
         // If the target is below the crosshair, we aren't close enough, move forward
         // If the target is to the left of the crosshair, we are too far to the right,
@@ -103,14 +104,22 @@ public class VisionDrive extends Command {
                                                                              // move left
             }
 
+            if(Math.abs(x_adjust) >= .4){
+                x_adjust = Math.signum(x_adjust) * .4;
+            }
+
             if (ty > 1.0) {
                 y_adjust = Kp * Math.tanh(heading_errorY - min_command);
             } else if (ty < 1.0) {
                 y_adjust = -1 * Math.tanh((Kp * heading_errorY + min_command));
             }
 
+            if(Math.abs(y_adjust) >= .4){
+                y_adjust = Math.signum(y_adjust) * .4;
+            }
+
             // calculate the angle we want to turn by
-            double angle = ahrs.getYaw();
+            double angle = ahrs.getRoll();
             double angleToTurnTo = 0;
             double minDifference = 1000;
             double[] snapAngles = { -180, -120, -90, -60, 0, 60, 90, 120, 180 };
@@ -128,7 +137,7 @@ public class VisionDrive extends Command {
             SmartDashboard.putNumber("y_adjust", y_adjust);
 
             // GET TO THE CORRECT ANGLE
-            angle = ahrs.getYaw();
+            angle = ahrs.getRoll();
             double angleError = angleToTurnTo - angle;
             double steering_adjust = 0.0f;
             double allowedAngleError = 1.0;
@@ -145,8 +154,10 @@ public class VisionDrive extends Command {
                     turnSpeed = 0.2 * Math.signum(turnSpeed);
                 }
             }
+            if(Math.abs(turnSpeed) >= .4){
+                turnSpeed = Math.signum(turnSpeed) * .4;
+            }
             SmartDashboard.putNumber("AngleTurnPower", turnSpeed);
-
             Robot.driveTrain.drive(turnSpeed, x_adjust, y_adjust);
         }
         // }
