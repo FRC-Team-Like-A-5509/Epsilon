@@ -34,7 +34,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  *
  */
 public class VisionDrive extends Command {
-    public AHRS ahrs;
+    //public AHRS ahrs;
 
     private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     private NetworkTableEntry ta = table.getEntry("ta");
@@ -51,7 +51,7 @@ public class VisionDrive extends Command {
              * See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for
              * details.
              */
-            ahrs = new AHRS(SPI.Port.kMXP);
+            //ahrs = new AHRS(SPI.Port.kMXP);
         } catch (RuntimeException ex) {
             DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
         }
@@ -68,15 +68,12 @@ public class VisionDrive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        ahrs.reset();
+        //ahrs.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        SmartDashboard.putNumber("GyroRawAxis", ahrs.getAngle());
-        SmartDashboard.putNumber("GyroRawAxisYaw", ahrs.getYaw());
-        SmartDashboard.putNumber("GyroRawAxisRoll", ahrs.getRoll());
         // If the target is above the crosshair, we are too close, move back
         // If the target is below the crosshair, we aren't close enough, move forward
         // If the target is to the left of the crosshair, we are too far to the right,
@@ -90,7 +87,7 @@ public class VisionDrive extends Command {
         // LimelightVision vision = new LimelightVision();
         double tx = getXInDegrees();
         double ty = getYInDegrees();
-        double allowedError = .2;
+        double allowedError = .07;
     
         // if (joystick1.getRawAxis(9) == 1){
         if (getValidTarget() == 1) {
@@ -115,9 +112,9 @@ public class VisionDrive extends Command {
             }
 
             if (ty > 1.0) {
-                y_adjust = Math.tanh(Kp * heading_errorY - min_command);
+                y_adjust = Math.tanh(-.03 * heading_errorY - min_command);
             } else if (ty < 1.0) {
-                y_adjust = Math.tanh((Kp * heading_errorY + min_command));
+                y_adjust = Math.tanh((-.03 * heading_errorY + min_command));
             }
 
             if(Math.abs(y_adjust) >= .4){
@@ -127,7 +124,7 @@ public class VisionDrive extends Command {
                 y_adjust = 0;
             }
             // calculate the angle we want to turn by
-            double angle = ahrs.getRoll();
+            double angle = 0;//ahrs.getYaw();
             double angleToTurnTo = 0;
             double minDifference = 1000;
             double[] snapAngles = { -180, -120, -90, -60, 0, 60, 90, 120, 180 };
@@ -145,10 +142,10 @@ public class VisionDrive extends Command {
             SmartDashboard.putNumber("y_adjust", y_adjust);
 
             // GET TO THE CORRECT ANGLE
-            angle = ahrs.getRoll();
+            angle = 0;//ahrs.getYaw();
             double angleError = angleToTurnTo - angle;
             double steering_adjust = 0.0f;
-            double allowedAngleError = 2.80;
+            double allowedAngleError = 1.00;
             double turnSpeed = 0.0;
             // Don't turn if we're in the tolerance
             if (Math.abs(angleError) > allowedAngleError) {
