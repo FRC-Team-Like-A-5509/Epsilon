@@ -88,7 +88,7 @@ public class VisionDrive extends Command {
         // LimelightVision vision = new LimelightVision();
         double tx = getXInDegrees();
         double ty = Robot.sonarSensor.getDistanceInInches();
-  
+        SmartDashboard.putNumber("DistanceInInches", ty);
         double allowedError = .07;
     
         // if (joystick1.getRawAxis(9) == 1){
