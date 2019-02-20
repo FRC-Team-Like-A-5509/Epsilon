@@ -52,6 +52,7 @@ public class LiftUpDown extends Command {
 
         power = Math.pow(power, 5);
 
+        
         if(Robot.oi.getJoystick2().getRawButton(1)){
             power = -0.1;
         }
