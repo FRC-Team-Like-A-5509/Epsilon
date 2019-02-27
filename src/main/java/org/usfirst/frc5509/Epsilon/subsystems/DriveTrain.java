@@ -39,7 +39,7 @@ public class DriveTrain extends Subsystem {
 	private final static double TRACKWIDTH = 23; // length between two motors on same axis
 	//23, 16.5
     private final static double RADIUS = Math.sqrt(Math.pow(WHEELBASE, 2) + Math.pow(TRACKWIDTH, 2));
-    private final static double MAX_SPEED = 1;
+    private final static double MAX_SPEED = .75;
     private final static double ENCODER_TICKS = 256; // amount of point in wheel rotation for encoder assuming 1024
                                                      // encoder
     private final static double ROTATION_RATIO = 4; // rotation ratio for gearing (probably)

@@ -67,13 +67,19 @@ public class Drive extends Command {
         rotation = Math.pow(rotation, 3);
         x = Math.pow(x, 3);
         y = Math.pow(y,3);
-    	
-    	if(!Robot.oi.getJoystick1().getRawButton(6)){
+        
+        
+    	if(Robot.oi.getJoystick1().getRawButton(6)){
 
             y *= .5;
             x*= .5;
             rotation *= .25; 
             
+        }
+
+        if(Robot.oi.getJoystick1().getRawButton(5)){
+            y *= .25;
+            x *= .25;
         }
     	
         Robot.driveTrain.drive(rotation, x, y);
