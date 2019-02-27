@@ -53,10 +53,10 @@ public class LiftUpDown extends Command {
         power = Math.pow(power, 5);
 
         if(Robot.oi.getJoystick2().getRawButton(1)){
-            power = -0.1;
+            power = -0.05;
         }
 
-        Robot.liftDrive.driveMotor(-power);
+        Robot.liftDrive.driveMotor(power);
 
         //SmartDashboard.putNumber("Encoder Position", Robot.liftDrive.getEncoder().getPosition());
 
