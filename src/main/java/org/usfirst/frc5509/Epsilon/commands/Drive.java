@@ -39,7 +39,7 @@ public class Drive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.driveTrain.initTurnMode();
+        Robot.driveTrain.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -95,7 +95,7 @@ public class Drive extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.driveTrain.drive(0,0,0);
+        Robot.driveTrain.disable();
     }
 
     // Called when another command which requires one or more of the same
