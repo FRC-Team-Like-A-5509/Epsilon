@@ -12,8 +12,8 @@ public class SwerveController implements PIDSource, PIDOutput {
 
     private WPI_TalonSRX talon;
     private PIDController controller;
-    private final static double P = .006;
-    private final static double I = .00002;
+    private final static double P = .012;//.012 is real good
+    private final static double I = .00012;//0.00006 is real good
     private final static double D = 0;
     private static final int TIMEOUT_MS = 10;
 
