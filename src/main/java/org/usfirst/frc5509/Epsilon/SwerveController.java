@@ -77,5 +77,9 @@ public class SwerveController implements PIDSource, PIDOutput {
         controller.disable();
     }
 
+    public double getError(){
+      return controller.getError();
+    }
+
 
 }
