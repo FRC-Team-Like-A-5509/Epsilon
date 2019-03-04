@@ -148,6 +148,12 @@ public class DriveTrain extends Subsystem {
 
 		double[] speeds = new double[4];
 		double[] rotations = new double[4];
+		SwerveController[] controllers = new SwerveController[4];
+
+		controllers[0] = frontRightSwerve;
+		controllers[1] = frontLeftSwerve;
+		controllers[2] = backLeftSwerve;
+		controllers[3] = backRightSwerve;
 
 		// calculate speed/rotation for each wheel
 		speeds[0] = Math.sqrt(Math.pow(B, 2) + Math.pow(C, 2)); //frontright
@@ -184,6 +190,12 @@ public class DriveTrain extends Subsystem {
 
 		}
 
+		for(int i = 0; i<4; i ++){
+
+			
+
+		}
+
 		boolean shouldRotate = false;
 
 		shouldRotate |= Math.abs(x) > .2;
@@ -191,11 +203,18 @@ public class DriveTrain extends Subsystem {
 		shouldRotate |= Math.abs(rotation) > .2;
 
 
-		if(shouldRotate){
+		if(shouldRotate){/*
 			frontRightSwerve.setAngle(rotations[0]);
 			frontLeftSwerve.setAngle(rotations[1]);
 			backLeftSwerve.setAngle(rotations[2]);
-			backRightSwerve.setAngle(rotations[3]);
+			backRightSwerve.setAngle(rotations[3]);*/
+
+			for(int i = 0; i < 4; i ++){
+				
+				controllers[i].setAngle(rotations[i]);
+
+			}
+
 		}
 
 		if(Math.abs(frontRightSwerve.getError()) < degreeError &&
