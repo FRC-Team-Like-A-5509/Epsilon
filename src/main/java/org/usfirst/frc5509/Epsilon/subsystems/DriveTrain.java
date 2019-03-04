@@ -48,7 +48,8 @@ public class DriveTrain extends Subsystem {
     private final static double PIDP = 12;
     private final static double PIDI = 0.0001;
     private final static double PIDD = 0;
-    private final static double PIDF = 0;
+	private final static double PIDF = 0;
+	private final static double SECONDS_TO_FULL_DRIVE = 0.5;
 	private double convertUsed = 0;
 	private int tickLimit = 20;
 	private int degreeError = 15;
@@ -93,6 +94,12 @@ public class DriveTrain extends Subsystem {
 		frontLeftSwerve = new SwerveController(3);
 		backRightSwerve = new SwerveController(5);
 		backLeftSwerve = new SwerveController(4);
+
+		frontLeftDrive.configOpenloopRamp(SECONDS_TO_FULL_DRIVE);
+		frontRightDrive.configOpenloopRamp(SECONDS_TO_FULL_DRIVE);
+		backLeftDrive.configOpenloopRamp(SECONDS_TO_FULL_DRIVE);
+		backRightDrive.configOpenloopRamp(SECONDS_TO_FULL_DRIVE);
+
 
     }
 
