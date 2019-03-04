@@ -192,7 +192,16 @@ public class DriveTrain extends Subsystem {
 
 		for(int i = 0; i<4; i ++){
 
-			
+			double diffReg = diffBetweenDegrees(rotations[i], controllers[i].pidGet());
+			double oppAngle = (rotations[i] + 180) % 360;
+			double diffOpp = diffBetweenDegrees(oppAngle, controllers[i].pidGet());
+
+			if(Math.abs(diffOpp) < Math.abs(diffReg)){
+
+				rotations[i] = oppAngle;
+				speeds[i] *= -1;
+
+			}
 
 		}
 
@@ -289,5 +298,20 @@ public class DriveTrain extends Subsystem {
 		backRightSwerve.disable();
 		backLeftSwerve.disable();
 	}
+
+	public static double diffBetweenDegrees(double a, double b){
+
+        double r = (b - a) % 360.0;
+
+        if(r < -180.0){
+            r+= 360.0;
+        }
+        if(r >= 180){
+            r-= 360.0;
+        }
+
+        return r;
+
+    }
 
 }
