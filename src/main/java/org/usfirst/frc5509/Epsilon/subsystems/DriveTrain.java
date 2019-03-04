@@ -184,10 +184,19 @@ public class DriveTrain extends Subsystem {
 
 		}
 
-		frontRightSwerve.setAngle(rotations[0]);
-		frontLeftSwerve.setAngle(rotations[1]);
-		backLeftSwerve.setAngle(rotations[2]);
-		backRightSwerve.setAngle(rotations[3]);
+		boolean shouldRotate = false;
+
+		shouldRotate |= Math.abs(x) > .2;
+		shouldRotate |= Math.abs(y) > .2;
+		shouldRotate |= Math.abs(rotation) > .2;
+
+
+		if(shouldRotate){
+			frontRightSwerve.setAngle(rotations[0]);
+			frontLeftSwerve.setAngle(rotations[1]);
+			backLeftSwerve.setAngle(rotations[2]);
+			backRightSwerve.setAngle(rotations[3]);
+		}
 
 		if(Math.abs(frontRightSwerve.getError()) < degreeError &&
 			Math.abs(frontLeftSwerve.getError()) < degreeError &&
