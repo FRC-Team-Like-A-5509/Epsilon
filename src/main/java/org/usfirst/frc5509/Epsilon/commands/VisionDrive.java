@@ -116,10 +116,13 @@ public class VisionDrive extends Command {
                 x_adjust = .2 * Math.signum(x_adjust);
             }
 
-            if (ty > (desiredDistanceFromTarget + distanceError)) {
+            if (ty > (desiredDistanceFromTarget + distanceError)) {//wouldn't you subtract the distance error here
                 y_adjust = (KpDistance * heading_errorY - min_command) / 201.7;
             } else if (ty < (desiredDistanceFromTarget - distanceError)) {
                 y_adjust = (KpDistance * heading_errorY + min_command) / 201.7;
+            }
+            else{
+                y_adjust = 0;
             }
 
             if(Math.abs(y_adjust) >= .4){
