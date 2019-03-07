@@ -76,7 +76,8 @@ public class Robot extends TimedRobot {
         driveTrain.writeDefaultValues();
 
         CameraServer.getInstance().startAutomaticCapture();
-
+        CameraServer.getInstance().startAutomaticCapture(0);
+        CameraServer.getInstance().startAutomaticCapture(1);
     }
 
     /**
