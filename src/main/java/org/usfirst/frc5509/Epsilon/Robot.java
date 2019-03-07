@@ -83,7 +83,8 @@ public class Robot extends TimedRobot {
         driveTrain.resetTurnEncoders();
 
         
-        CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture(0);
+        CameraServer.getInstance().startAutomaticCapture(1);
     }
 
     /**
