@@ -12,7 +12,7 @@ public class SwerveController implements PIDSource, PIDOutput {
 
     private WPI_TalonSRX talon;
     private PIDController controller;
-    private final static double P = .012;//.012 is real good
+    private final static double P = .014;//.012 is real good
     private final static double I = .00012;//0.00006 is real good
     private final static double D = 0;
     private static final int TIMEOUT_MS = 10;
@@ -25,7 +25,7 @@ public class SwerveController implements PIDSource, PIDOutput {
         controller.setInputRange(0, 360);
         controller.setOutputRange(-1, 1);
         controller.setContinuous(true);
-
+        
         talon.configSelectedFeedbackSensor(FeedbackDevice.Analog);
         talon.setSelectedSensorPosition(0, 0, TIMEOUT_MS);
 

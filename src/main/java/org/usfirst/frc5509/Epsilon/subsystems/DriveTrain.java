@@ -180,15 +180,16 @@ public class DriveTrain extends Subsystem {
 
 		}
 
-		//TODO: Make it not go back to 0 when no input from joystick
+		
 
+		/*
 		for (int i = 0; i < 4; i++) {
 
 			SmartDashboard.putNumber("Speed " + i, speeds[i]);
 			SmartDashboard.putNumber("Rotations " + i, rotations[i]);
 			SmartDashboard.putNumber("Ticks " + i, ticks[i]);
 
-		}
+		}*/
 
 		for(int i = 0; i<4; i ++){
 
@@ -207,9 +208,9 @@ public class DriveTrain extends Subsystem {
 
 		boolean shouldRotate = false;
 
-		shouldRotate |= Math.abs(x) > .2;
-		shouldRotate |= Math.abs(y) > .2;
-		shouldRotate |= Math.abs(rotation) > .2;
+		shouldRotate |= Math.abs(x) > .15;
+		shouldRotate |= Math.abs(y) > .15;
+		shouldRotate |= Math.abs(rotation) > .15;
 
 
 		if(shouldRotate){/*
