@@ -14,6 +14,7 @@ package org.usfirst.frc5509.Epsilon.subsystems;
 
 import org.usfirst.frc5509.Epsilon.commands.*;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -73,6 +74,8 @@ public class LedController extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void setLights(double value){
+        SmartDashboard.putNumber("lightvalue", value);
+        
         blinkin.set(value);
     }
 }

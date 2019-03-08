@@ -8,10 +8,13 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package org.usfirst.frc5509.Epsilon.commands;
+
+import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc5509.Epsilon.Robot;
 import org.usfirst.frc5509.Epsilon.subsystems.LedController;
 
@@ -45,11 +48,13 @@ public class LedDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if(Timer.getMatchTime() >= 135){
-            Robot.ledController.setLights(.41);
+        SmartDashboard.putNumber("HALGameTime", HAL.getMatchTime());
+        SmartDashboard.putNumber("TimerGameTime", Timer.getMatchTime());
+        if(Timer.getMatchTime() <= 15){
+            Robot.ledController.setLights(-.99);
         }
-        else{
-            Robot.ledController.setLights(.43);
+        else if(Timer.getMatchTime() > 15){
+            Robot.ledController.setLights(.41);
         }
     }
 
