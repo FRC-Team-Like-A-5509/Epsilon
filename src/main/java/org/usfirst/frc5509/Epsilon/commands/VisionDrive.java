@@ -87,16 +87,16 @@ public class VisionDrive extends Command {
 
         // LimelightVision vision = new LimelightVision();
         double tx = getXInDegrees();
-        double ty = Robot.sonarSensor.getDistanceInInches();
-        SmartDashboard.putNumber("DistanceInInches", ty);
+        //double ty = Robot.sonarSensor.getDistanceInInches();
+        //SmartDashboard.putNumber("DistanceInInches", ty);
         double allowedError = .07;
     
         // if (joystick1.getRawAxis(9) == 1){
         if (getValidTarget() == 1) {
             double heading_errorX = -tx;
-            double heading_errorY = -ty;
+            //double heading_errorY = -ty;
             double x_adjust = 0.0; // uses the x values, determines side to side movement
-            double y_adjust = 0.0; // uses the y values, determines front to back movement
+            //double y_adjust = 0.0; // uses the y values, determines front to back movement
 
             if (tx > 1.0) {
                 x_adjust = Math.tanh(Kp * heading_errorX - min_command);// target is to the right of the cross hair,
@@ -115,7 +115,7 @@ public class VisionDrive extends Command {
             if(Math.abs(x_adjust)<= .2 && x_adjust != 0){
                 x_adjust = .2 * Math.signum(x_adjust);
             }
-
+            /*
             if (ty > (desiredDistanceFromTarget + distanceError)) {//wouldn't you subtract the distance error here
                 y_adjust = (KpDistance * heading_errorY - min_command) / 201.7;
             } else if (ty < (desiredDistanceFromTarget - distanceError)) {
@@ -133,7 +133,7 @@ public class VisionDrive extends Command {
             }
             if(Math.abs(y_adjust)<= .2 && y_adjust != 0){
                 y_adjust = .2* Math.signum(y_adjust);
-            }
+            }*/
             // calculate the angle we want to turn by
             double angle = Robot.gyroSub.ahrs.getYaw();
             double angleToTurnTo = 0;
@@ -150,7 +150,7 @@ public class VisionDrive extends Command {
             // strafe_command += x_adjust;
             SmartDashboard.putNumber("x_adjust", x_adjust);
             // frontBack_command += y_adjust;
-            SmartDashboard.putNumber("y_adjust", y_adjust);
+            ////SmartDashboard.putNumber("y_adjust", y_adjust);
 
             // GET TO THE CORRECT ANGLE
             angle = Robot.gyroSub.ahrs.getYaw();
@@ -174,7 +174,7 @@ public class VisionDrive extends Command {
                 turnSpeed = Math.signum(turnSpeed) * .4;
             }
             SmartDashboard.putNumber("AngleTurnPower", turnSpeed);
-            Robot.driveTrain.drive(turnSpeed, x_adjust, y_adjust);
+            Robot.driveTrain.drive(turnSpeed, x_adjust, 0);
         }
         // }
     }

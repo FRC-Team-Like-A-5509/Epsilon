@@ -44,8 +44,12 @@ public class Drive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+<<<<<<< HEAD
         //ahrs.reset();
         Robot.driveTrain.initTurnMode();
+=======
+        Robot.driveTrain.enable();
+>>>>>>> realSwerveAndLED
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -73,11 +77,20 @@ public class Drive extends Command {
         rotation = Math.pow(rotation, 3);
         x = Math.pow(x, 3);
         y = Math.pow(y,3);
-    	
-    	if(!Robot.oi.getJoystick1().getRawButton(6)){
+        
+        
+    	if(Robot.oi.getJoystick1().getRawButton(6)){
+
             y *= .5;
             x*= .5;
-            rotation *= .5;
+            rotation *= .5; 
+            
+        }
+
+        if(Robot.oi.getJoystick1().getRawButton(5)){
+            y *= .25;
+            x *= .25;
+            rotation *= 0.25;
         }
     	
         Robot.driveTrain.drive(rotation, x, y);
@@ -93,7 +106,7 @@ public class Drive extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.driveTrain.drive(0,0,0);
+        Robot.driveTrain.disable();
     }
 
     // Called when another command which requires one or more of the same
