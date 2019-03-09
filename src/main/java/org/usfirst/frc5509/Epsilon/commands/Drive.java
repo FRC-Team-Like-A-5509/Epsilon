@@ -44,12 +44,7 @@ public class Drive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-<<<<<<< HEAD
-        //ahrs.reset();
-        Robot.driveTrain.initTurnMode();
-=======
         Robot.driveTrain.enable();
->>>>>>> realSwerveAndLED
     }
 
     // Called repeatedly when this Command is scheduled to run
