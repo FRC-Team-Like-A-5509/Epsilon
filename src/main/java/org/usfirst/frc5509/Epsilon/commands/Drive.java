@@ -82,6 +82,12 @@ public class Drive extends Command {
             x *= .25;
             rotation *= 0.25;
         }
+
+        if(Robot.oi.getJoystick1().getRawButton(1)){
+            y *= -1;
+            x *= -1;
+            rotation *= -1;
+        }
     	
         Robot.driveTrain.drive(rotation, x, y);
         
