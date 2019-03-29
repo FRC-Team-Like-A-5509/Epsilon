@@ -78,9 +78,9 @@ public class Drive extends Command {
         }
 
         if(Robot.oi.getJoystick1().getRawButton(5)){
-            y *= .25;
-            x *= .25;
-            rotation *= 0.25;
+            y *= .4;
+            x *= .4;
+            rotation *= 0.35;
         }
 
         if(Robot.oi.getJoystick1().getRawButton(1)){
