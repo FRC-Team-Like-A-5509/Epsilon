@@ -71,16 +71,16 @@ public class Drive extends Command {
         
     	if(Robot.oi.getJoystick1().getRawButton(6)){
 
-            y *= .5;
-            x*= .5;
-            rotation *= .5; 
+            y *= .75;
+            x*= .75;
+            rotation *= .75; 
             
         }
 
         if(Robot.oi.getJoystick1().getRawButton(5)){
-            y *= .4;
-            x *= .4;
-            rotation *= 0.35;
+            y *= .5;
+            x *= .5;
+            rotation *= 0.5;
         }
 
         if(Robot.oi.getJoystick1().getRawButton(1)){
