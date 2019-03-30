@@ -142,7 +142,10 @@ public class DriveTrain extends Subsystem {
     }
 
 	public void drive(double rotation, double x, double y) {
-
+		SmartDashboard.putNumber("Rotation", rotation);
+		SmartDashboard.putNumber("Swerve_X", x);
+		SmartDashboard.putNumber("Swerve_y", y);
+		SmartDashboard.putNumber("angle", Math.atan2(y, x));
 		// calculate x/y components for wheels 1 & 3 as thats all that's needed
 		double A = x - rotation * (WHEELBASE / RADIUS);
 		double B = x + rotation * (WHEELBASE / RADIUS);
