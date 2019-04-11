@@ -233,20 +233,23 @@ public class DriveTrain extends Subsystem {
 
 		}
 
-		if((Math.abs(frontRightSwerve.getError()) < degreeError &&
-			Math.abs(frontLeftSwerve.getError()) < degreeError &&
-			Math.abs(backLeftSwerve.getError()) < degreeError &&
-			Math.abs(backRightSwerve.getError()) < degreeError) || (Robot.oi.getJoystick1().getRawButton(2))){
+		if (Robot.oi.getJoystick1().getRawButton(5)) {
+			if ((Math.abs(frontRightSwerve.getError()) < degreeError
+					&& Math.abs(frontLeftSwerve.getError()) < degreeError
+					&& Math.abs(backLeftSwerve.getError()) < degreeError
+					&& Math.abs(backRightSwerve.getError()) < degreeError)) {
 
-			canDrive = true;
+				canDrive = true;
 
+			} else {
+
+				canDrive = false;
+
+			}
 		}
 		else{
-
-			canDrive = false;
-
+			canDrive = true;
 		}
-
 		// normalize speeds to a good speed;
 		speeds = normalizeSpeeds(speeds, x, y);
 		

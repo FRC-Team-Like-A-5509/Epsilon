@@ -76,7 +76,7 @@ public class OI {
         SmartDashboard.putData("Pivot", new Pivot());
         SmartDashboard.putData("LiftUpDown", new LiftUpDown());
         SmartDashboard.putData("IntakeMove", new IntakeMove());
-        SmartDashboard.putData("VisionDrive", new VisionDrive());
+        //SmartDashboard.putData("VisionDrive", new VisionDrive());
         //SmartDashboard.putData("DriveXFeet", new DriveXFeet());
         //SmartDashboard.putData("TurnNDegrees", new TurnNDegrees());
 
