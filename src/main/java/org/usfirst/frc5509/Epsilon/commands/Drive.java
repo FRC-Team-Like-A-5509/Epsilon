@@ -93,7 +93,7 @@ public class Drive extends Command {
             x *= -1;
             rotation *= -1;
         }
-    	
+    	x*=.75;y*=.75;
         Robot.driveTrain.drive(rotation, x, y);
         
     }
